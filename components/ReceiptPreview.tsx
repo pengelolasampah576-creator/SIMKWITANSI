@@ -14,7 +14,7 @@ const ReceiptPreview: React.FC<ReceiptPreviewProps> = ({ data }) => {
       style={{ fontFamily: 'Arial, Helvetica, sans-serif' }}
     >
       {/* Header Info */}
-      <div className="flex justify-between mb-4">
+      <div className="flex justify-between mb-2">
         <div className="w-1/2">
           <table className="w-full">
             <tbody>
@@ -35,21 +35,21 @@ const ReceiptPreview: React.FC<ReceiptPreviewProps> = ({ data }) => {
         </div>
       </div>
 
-      <div className="text-center font-bold text-xl underline mb-8 uppercase">KWITANSI</div>
+      <div className="text-center font-bold text-xl underline mb-4 uppercase">KWITANSI</div>
 
-      <div className="space-y-6 mb-10">
+      <div className="space-y-3 mb-6">
         <div className="flex items-center">
           <div className="w-48 shrink-0">Sudah Terima Dari</div>
           <div className="mr-2">:</div>
           <div className="grow font-bold whitespace-nowrap overflow-hidden text-ellipsis border-b border-transparent">
-            {toProperCase(data.sudahTerimaDari) || '...'}
+            {data.sudahTerimaDari || '...'}
           </div>
         </div>
 
         <div className="flex items-start">
           <div className="w-48 shrink-0">Terbilang</div>
           <div className="mr-2">:</div>
-          <div className="grow italic font-bold text-base bg-gray-50 p-3 rounded border border-gray-200 leading-snug text-justify">
+          <div className="grow italic font-bold text-base bg-gray-50 p-2 rounded border border-gray-200 leading-snug text-justify">
             {toProperCase(data.uangSebanyak) || '...'}
           </div>
         </div>
@@ -61,9 +61,9 @@ const ReceiptPreview: React.FC<ReceiptPreviewProps> = ({ data }) => {
         </div>
       </div>
 
-      <div className="flex justify-between items-center mb-12">
+      <div className="flex justify-between items-center mb-8">
         <div className="w-1/2 flex justify-start">
-          <div className="border-2 border-black p-5 inline-block font-bold">
+          <div className="border-2 border-black p-4 inline-block font-bold">
             <div className="flex gap-4 items-center">
               <span className="text-lg">Nominal Rp.</span>
               <span className="text-2xl">{formatCurrency(data.jumlahUang)}</span>
@@ -76,21 +76,21 @@ const ReceiptPreview: React.FC<ReceiptPreviewProps> = ({ data }) => {
       </div>
 
       {/* Signature Grid */}
-      <div className="grid grid-cols-2 gap-y-14">
+      <div className="grid grid-cols-2 gap-y-6">
         {/* Row 1 */}
         <div className="text-center px-4">
           <p>Mengetahui,</p>
           <p className="font-bold">PPTK</p>
-          <div className="h-28"></div>
-          <p className="font-bold underline uppercase">{data.pptk.nama || '...'}</p>
+          <div className="h-20"></div>
+          <p className="font-bold underline">{data.pptk.nama || '...'}</p>
           <p>NIP. {data.pptk.nip || '...'}</p>
         </div>
 
         <div className="text-center px-4">
           <p>&nbsp;</p>
           <p className="font-bold">Tanda Terima Uang</p>
-          <div className="h-28"></div>
-          <p className="font-bold underline uppercase">{data.penerima.nama || '...'}</p>
+          <div className="h-20"></div>
+          <p className="font-bold underline">{data.penerima.nama || '...'}</p>
           <p>NIP. {data.penerima.nip || '...'}</p>
         </div>
 
@@ -98,16 +98,16 @@ const ReceiptPreview: React.FC<ReceiptPreviewProps> = ({ data }) => {
         <div className="text-center px-4">
           <p>Setuju dibayar :</p>
           <p className="font-bold uppercase">{data.penggunaAnggaran.jabatan || 'PENGGUNA ANGGARAN'}</p>
-          <div className="h-28"></div>
-          <p className="font-bold underline uppercase">{data.penggunaAnggaran.nama || '...'}</p>
+          <div className="h-20"></div>
+          <p className="font-bold underline">{data.penggunaAnggaran.nama || '...'}</p>
           <p>NIP. {data.penggunaAnggaran.nip || '...'}</p>
         </div>
 
         <div className="text-center px-4">
           <p>Lunas dibayar :</p>
           <p className="font-bold uppercase">Bendahara Pengeluaran,</p>
-          <div className="h-28"></div>
-          <p className="font-bold underline uppercase">{data.bendahara.nama || '...'}</p>
+          <div className="h-20"></div>
+          <p className="font-bold underline">{data.bendahara.nama || '...'}</p>
           <p>NIP. {data.bendahara.nip || '...'}</p>
         </div>
       </div>
