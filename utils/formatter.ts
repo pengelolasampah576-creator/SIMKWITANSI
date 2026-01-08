@@ -7,6 +7,15 @@ export const formatCurrency = (amount: number): string => {
   }).format(amount);
 };
 
+export const toProperCase = (text: string): string => {
+  if (!text) return "";
+  return text
+    .toLowerCase()
+    .split(' ')
+    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(' ');
+};
+
 export const numberToTerbilang = (n: number): string => {
   if (n === 0) return "Nol Rupiah";
   

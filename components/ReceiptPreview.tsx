@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { ReceiptData } from '../types';
-import { formatCurrency } from '../utils/formatter';
+import { formatCurrency, toProperCase } from '../utils/formatter';
 
 interface ReceiptPreviewProps {
   data: ReceiptData;
@@ -9,15 +9,18 @@ interface ReceiptPreviewProps {
 
 const ReceiptPreview: React.FC<ReceiptPreviewProps> = ({ data }) => {
   return (
-    <div className="print-container bg-white p-12 shadow-2xl mx-auto w-full max-w-[210mm] min-h-[297mm] text-[12px] leading-relaxed text-black font-serif">
+    <div 
+      className="print-container bg-white p-12 shadow-2xl mx-auto w-full max-w-[210mm] min-h-[297mm] text-[12px] leading-relaxed text-black"
+      style={{ fontFamily: 'Arial, Helvetica, sans-serif' }}
+    >
       {/* Header Info */}
       <div className="flex justify-between mb-2">
         <div className="w-1/2">
           <table className="w-full">
             <tbody>
               <tr><td className="w-32">Tahun Anggaran</td><td className="w-4">:</td><td>{data.tahunAnggaran || '2025'}</td></tr>
-              <tr><td>Kegiatan</td><td>:</td><td>{data.kegiatan || '...'}</td></tr>
-              <tr><td>Sub Kegiatan</td><td>:</td><td>{data.subKegiatan || '...'}</td></tr>
+              <tr><td>Kegiatan</td><td>:</td><td>{toProperCase(data.kegiatan) || '...'}</td></tr>
+              <tr><td>Sub Kegiatan</td><td>:</td><td>{toProperCase(data.subKegiatan) || '...'}</td></tr>
               <tr><td>Kode Rekening</td><td>:</td><td>{data.kodeRekening || '...'}</td></tr>
             </tbody>
           </table>
@@ -36,17 +39,19 @@ const ReceiptPreview: React.FC<ReceiptPreviewProps> = ({ data }) => {
       <div className="text-center font-bold text-lg underline mb-6 uppercase">KWITANSI</div>
 
       <div className="space-y-4 mb-8">
-        <div className="flex">
+        <div className="flex items-center">
           <div className="w-40 shrink-0">Sudah Terima Dari</div>
           <div className="mr-2">:</div>
-          <div className="border-b border-dotted border-black grow font-bold uppercase">{data.sudahTerimaDari || '...'}</div>
+          <div className="border-b border-dotted border-black grow font-bold whitespace-nowrap overflow-hidden text-ellipsis">
+            {toProperCase(data.sudahTerimaDari) || '...'}
+          </div>
         </div>
 
         <div className="flex items-start">
           <div className="w-40 shrink-0">Uang sebanyak</div>
           <div className="mr-2">:</div>
-          <div className="grow italic font-bold text-sm bg-gray-50 p-2 rounded border border-gray-200 uppercase leading-snug">
-            {data.uangSebanyak || '...'}
+          <div className="grow italic font-bold text-sm bg-gray-50 p-2 rounded border border-gray-200 leading-snug">
+            {toProperCase(data.uangSebanyak) || '...'}
           </div>
         </div>
 
@@ -60,12 +65,12 @@ const ReceiptPreview: React.FC<ReceiptPreviewProps> = ({ data }) => {
       <div className="flex justify-between items-center mb-10">
         <div className="border-2 border-black p-4 inline-block font-bold text-lg">
           <div className="flex gap-4">
-            <span>Terbilang Rp.</span>
+            <span>Nominal Rp.</span>
             <span className="text-xl">{formatCurrency(data.jumlahUang)}</span>
           </div>
         </div>
-        <div className="text-right">
-          Tanjung, {data.tanjungDate || '2026'}
+        <div className="text-right whitespace-pre">
+          Tanjung,                          {data.tanjungDate || '2025'}
         </div>
       </div>
 
