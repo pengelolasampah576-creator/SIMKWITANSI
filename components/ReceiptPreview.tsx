@@ -63,7 +63,7 @@ const ReceiptPreview: React.FC<ReceiptPreviewProps> = ({ data }) => {
 
       <div className="flex justify-between items-center mb-4">
         <div className="w-1/2 flex justify-start">
-          <div className="border-2 border-black p-3 inline-block font-bold">
+          <div className="border-2 border-black p-3 inline-block font-bold italic">
             <div className="flex gap-4 items-center">
               <span className="text-lg">Nominal Rp.</span>
               <span className="text-2xl">{formatCurrency(data.jumlahUang)}</span>
