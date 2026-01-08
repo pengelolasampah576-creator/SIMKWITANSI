@@ -1,0 +1,7 @@
+{
+  "name": "Sistem Manajemen Kwitansi (SimKwitansi)",
+  "description": "A professional receipt management system designed for Indonesian government standards. It supports OCR-based data extraction using Gemini, manual entry, and standardized printing formats.",
+  "requestFramePermissions": [
+    "camera"
+  ]
+}
