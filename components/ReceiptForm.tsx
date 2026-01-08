@@ -1,7 +1,7 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import { ReceiptData } from '../types';
-import { numberToTerbilang, formatCurrency } from '../utils/formatter';
+import { numberToTerbilang, formatCurrency, formatIndonesianDate } from '../utils/formatter';
 import { BUDGET_MAPPINGS, BudgetMapping } from '../data/mappings';
 import { EMPLOYEES, Employee } from '../data/employees';
 
@@ -10,7 +10,7 @@ interface ReceiptFormProps {
   onChange: (data: ReceiptData) => void;
 }
 
-// --- SUB-KOMPONEN DI LUAR UNTUK MENCEGAH RE-MOUNT (KEHILANGAN FOKUS) ---
+// --- SUB-KOMPONEN DI LUAR UNTUK MENCEGAH RE-MOUNT ---
 
 const BudgetSuggestionList = ({ 
   suggestions, 
@@ -320,6 +320,42 @@ const ReceiptForm: React.FC<ReceiptFormProps> = ({ data, onChange }) => {
           </div>
         </div>
 
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <label className={labelClass}>BK Umum</label>
+            <input 
+              type="text" 
+              name="bkUmum" 
+              placeholder="Nomor BK Umum"
+              value={data.bkUmum} 
+              onChange={handleChange} 
+              className={inputClass} 
+            />
+          </div>
+          <div>
+            <label className={labelClass}>Tanggal (Header)</label>
+            <div className="flex gap-2">
+              <input 
+                type="text" 
+                name="tanggal" 
+                placeholder="Contoh: 12 Januari 2025"
+                value={data.tanggal} 
+                onChange={handleChange} 
+                className={inputClass} 
+              />
+              <input 
+                type="date" 
+                className="w-10 h-9 p-0 border border-gray-300 rounded-md cursor-pointer flex-shrink-0"
+                onChange={(e) => {
+                  if (e.target.value) {
+                    onChange({ ...data, tanggal: formatIndonesianDate(e.target.value) });
+                  }
+                }}
+              />
+            </div>
+          </div>
+        </div>
+
         <div className="grid grid-cols-1 gap-4">
           <div className="relative">
             <label className={labelClass}>Kegiatan</label>
@@ -385,6 +421,49 @@ const ReceiptForm: React.FC<ReceiptFormProps> = ({ data, onChange }) => {
           <div>
             <label className={labelClass}>Untuk Pembayaran</label>
             <textarea name="untukPembayaran" value={data.untukPembayaran} onChange={handleChange} className={`${inputClass} transition-colors duration-300 ${lastAutoFill ? 'bg-green-50 border-green-200' : ''}`} rows={3} />
+          </div>
+        </div>
+      </div>
+
+      {/* SECTION TEMPAT & TANGGAL TANDA TANGAN */}
+      <div className="pt-4">
+        <div className={sectionTitle}>
+          <i className="fa-solid fa-location-dot text-red-500"></i>
+          Tempat & Tanggal (Bawah)
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <label className={labelClass}>Kota / Lokasi</label>
+            <input 
+              type="text" 
+              name="lokasi" 
+              placeholder="Contoh: Tanjung"
+              value={data.lokasi} 
+              onChange={handleChange} 
+              className={inputClass} 
+            />
+          </div>
+          <div>
+            <label className={labelClass}>Tanggal Tanda Tangan</label>
+            <div className="flex gap-2">
+              <input 
+                type="text" 
+                name="tanjungDate" 
+                placeholder="Contoh: 15 Mei 2026"
+                value={data.tanjungDate} 
+                onChange={handleChange} 
+                className={inputClass} 
+              />
+              <input 
+                type="date" 
+                className="w-10 h-9 p-0 border border-gray-300 rounded-md cursor-pointer flex-shrink-0"
+                onChange={(e) => {
+                  if (e.target.value) {
+                    onChange({ ...data, tanjungDate: formatIndonesianDate(e.target.value) });
+                  }
+                }}
+              />
+            </div>
           </div>
         </div>
       </div>

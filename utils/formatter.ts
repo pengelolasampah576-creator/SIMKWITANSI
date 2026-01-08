@@ -16,6 +16,16 @@ export const toProperCase = (text: string): string => {
     .join(' ');
 };
 
+export const formatIndonesianDate = (dateStr: string): string => {
+  const date = new Date(dateStr);
+  if (isNaN(date.getTime())) return dateStr;
+  return new Intl.DateTimeFormat('id-ID', {
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric',
+  }).format(date);
+};
+
 export const numberToTerbilang = (n: number): string => {
   if (n === 0) return "Nol Rupiah";
   
