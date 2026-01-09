@@ -14,22 +14,54 @@ const ReceiptPreview: React.FC<ReceiptPreviewProps> = ({ data }) => {
       style={{ fontFamily: 'Arial, Helvetica, sans-serif' }}
     >
       {/* Header Info */}
-      <div className="flex justify-between mb-1">
-        <div className="w-1/2">
+      <div className="flex justify-between mb-1 gap-4">
+        <div className="flex-grow">
           <table className="w-full">
             <tbody>
-              <tr><td className="w-36 align-top whitespace-nowrap">Tahun Anggaran</td><td className="w-4 align-top">:</td><td>{data.tahunAnggaran || '2025'}</td></tr>
-              <tr><td className="align-top">Kegiatan</td><td className="align-top">:</td><td className="text-justify">{toProperCase(data.kegiatan) || '...'}</td></tr>
-              <tr><td className="align-top">Sub Kegiatan</td><td className="align-top">:</td><td className="text-justify">{toProperCase(data.subKegiatan) || '...'}</td></tr>
-              <tr><td className="align-top">Kode Rekening</td><td className="align-top">:</td><td>{data.kodeRekening || '...'}</td></tr>
+              <tr>
+                <td className="w-36 align-top whitespace-nowrap">Tahun Anggaran</td>
+                <td className="w-4 align-top">:</td>
+                <td className="align-top">{data.tahunAnggaran || '2025'}</td>
+              </tr>
+              <tr>
+                <td className="align-top whitespace-nowrap">Kegiatan</td>
+                <td className="align-top">:</td>
+                <td className="align-top">
+                  <div className="text-left break-words">
+                    {toProperCase(data.kegiatan) || '...'}
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td className="align-top whitespace-nowrap">Sub Kegiatan</td>
+                <td className="align-top">:</td>
+                <td className="align-top">
+                  <div className="text-left break-words">
+                    {toProperCase(data.subKegiatan) || '...'}
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td className="align-top whitespace-nowrap">Kode Rekening</td>
+                <td className="align-top">:</td>
+                <td className="align-top">{data.kodeRekening || '...'}</td>
+              </tr>
             </tbody>
           </table>
         </div>
-        <div className="w-1/3">
-          <table className="w-full">
+        <div className="w-fit min-w-[180px]">
+          <table className="w-full text-right">
             <tbody>
-              <tr><td className="w-24 align-top">BK.Umum</td><td className="w-4 align-top">:</td><td>{data.bkUmum || '......................'}</td></tr>
-              <tr><td className="align-top">Tanggal</td><td className="align-top">:</td><td>{data.tanggal || '......................'}</td></tr>
+              <tr>
+                <td className="w-24 align-top text-left whitespace-nowrap">BK.Umum</td>
+                <td className="w-4 align-top text-center">:</td>
+                <td className="align-top text-left">{data.bkUmum || '......................'}</td>
+              </tr>
+              <tr>
+                <td className="align-top text-left whitespace-nowrap">Tanggal</td>
+                <td className="w-4 align-top text-center">:</td>
+                <td className="align-top text-left">{data.tanggal || '......................'}</td>
+              </tr>
             </tbody>
           </table>
         </div>
