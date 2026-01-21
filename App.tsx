@@ -87,7 +87,10 @@ const App: React.FC = () => {
 
   const handlePrint = () => {
     setActiveTab('preview');
-    setTimeout(() => window.print(), 100);
+    // Beri waktu sedikit agar DOM ter-render di tab preview
+    setTimeout(() => {
+        window.print();
+    }, 250);
   };
 
   const saveToHistory = () => {
@@ -245,7 +248,7 @@ const App: React.FC = () => {
           )}
           
           {activeTab === 'preview' && (
-            <div className="w-full flex justify-center animate-in zoom-in-95 duration-500">
+            <div className="w-full flex justify-center animate-in zoom-in-95 duration-500 preview-mode">
               <ReceiptPreview data={data} />
             </div>
           )}

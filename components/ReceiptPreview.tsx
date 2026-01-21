@@ -10,18 +10,24 @@ interface ReceiptPreviewProps {
 const ReceiptPreview: React.FC<ReceiptPreviewProps> = ({ data }) => {
   return (
     <div 
-      className="print-container bg-white p-10 shadow-2xl mx-auto w-full max-w-[210mm] min-h-[297mm] text-[15px] leading-snug text-black"
-      style={{ fontFamily: 'Arial, Helvetica, sans-serif' }}
+      className="print-container bg-white shadow-2xl mx-auto text-[15px] leading-snug text-black"
+      style={{ 
+        fontFamily: 'Arial, Helvetica, sans-serif',
+        width: '210mm',
+        minHeight: '297mm',
+        padding: '5mm 15mm 15mm 15mm', /* Padding atas dikurangi jadi 5mm */
+        boxSizing: 'border-box'
+      }}
     >
       {/* Header Info */}
-      <div className="flex justify-between mb-1 gap-4">
+      <div className="flex justify-between mb-1 gap-4"> {/* Margin bottom dikurangi dari mb-2 ke mb-1 */}
         <div className="flex-grow">
           <table className="w-full">
             <tbody>
               <tr>
                 <td className="w-36 align-top whitespace-nowrap">Tahun Anggaran</td>
                 <td className="w-4 align-top">:</td>
-                <td className="align-top">{data.tahunAnggaran || '2025'}</td>
+                <td className="align-top font-bold">{data.tahunAnggaran || '2025'}</td>
               </tr>
               <tr>
                 <td className="align-top whitespace-nowrap">Kegiatan</td>
@@ -44,13 +50,13 @@ const ReceiptPreview: React.FC<ReceiptPreviewProps> = ({ data }) => {
               <tr>
                 <td className="align-top whitespace-nowrap">Kode Rekening</td>
                 <td className="align-top">:</td>
-                <td className="align-top">{data.kodeRekening || '...'}</td>
+                <td className="align-top font-bold">{data.kodeRekening || '...'}</td>
               </tr>
             </tbody>
           </table>
         </div>
         <div className="w-fit min-w-[180px]">
-          <table className="w-full text-right">
+          <table className="w-full">
             <tbody>
               <tr>
                 <td className="w-24 align-top text-left whitespace-nowrap">BK.Umum</td>
@@ -67,13 +73,13 @@ const ReceiptPreview: React.FC<ReceiptPreviewProps> = ({ data }) => {
         </div>
       </div>
 
-      <div className="text-center font-bold text-xl underline mb-2 uppercase">KWITANSI</div>
+      <div className="text-center font-bold text-xl underline mb-2 uppercase tracking-wider">KWITANSI</div> {/* Margin bottom dikurangi dari mb-4 ke mb-2 */}
 
-      <div className="space-y-1 mb-3">
-        <div className="flex items-center">
+      <div className="space-y-1.5 mb-5"> {/* Jarak antar baris dan margin bottom dikurangi sedikit */}
+        <div className="flex items-start">
           <div className="w-48 shrink-0">Sudah Terima Dari</div>
           <div className="mr-2">:</div>
-          <div className="grow font-bold whitespace-nowrap overflow-hidden text-ellipsis border-b border-transparent">
+          <div className="grow font-bold leading-tight">
             {data.sudahTerimaDari || '...'}
           </div>
         </div>
@@ -81,7 +87,7 @@ const ReceiptPreview: React.FC<ReceiptPreviewProps> = ({ data }) => {
         <div className="flex items-start">
           <div className="w-48 shrink-0">Terbilang</div>
           <div className="mr-2">:</div>
-          <div className="grow italic font-bold text-base bg-gray-50 p-1.5 rounded border border-gray-200 leading-tight text-justify">
+          <div className="grow italic font-bold text-base bg-gray-50 p-2 rounded border border-gray-200 leading-tight text-justify">
             {toProperCase(data.uangSebanyak) || '...'}
           </div>
         </div>
@@ -89,13 +95,13 @@ const ReceiptPreview: React.FC<ReceiptPreviewProps> = ({ data }) => {
         <div className="flex items-start">
           <div className="w-48 shrink-0">Untuk Pembayaran</div>
           <div className="mr-2">:</div>
-          <div className="grow whitespace-pre-wrap text-justify">{data.untukPembayaran || '...'}</div>
+          <div className="grow whitespace-pre-wrap text-justify leading-relaxed">{data.untukPembayaran || '...'}</div>
         </div>
       </div>
 
-      <div className="flex justify-between items-center mb-4">
+      <div className="flex justify-between items-center mb-6"> {/* Margin bottom dikurangi dari mb-8 ke mb-6 */}
         <div className="w-1/2 flex justify-start">
-          <div className="border-2 border-black p-3 inline-block font-bold italic">
+          <div className="border-2 border-black p-4 inline-block font-bold italic">
             <div className="flex gap-4 items-center">
               <span className="text-lg">Nominal Rp.</span>
               <span className="text-2xl">{formatCurrency(data.jumlahUang)}</span>
@@ -108,12 +114,12 @@ const ReceiptPreview: React.FC<ReceiptPreviewProps> = ({ data }) => {
       </div>
 
       {/* Signature Grid */}
-      <div className="grid grid-cols-2 gap-y-2">
+      <div className="grid grid-cols-2 gap-y-4"> {/* Gap y dikurangi dari gap-y-6 ke gap-y-4 */}
         {/* Row 1 */}
         <div className="text-center px-4">
           <p>Mengetahui,</p>
           <p className="font-bold">PPTK</p>
-          <div className="h-14"></div>
+          <div className="h-16"></div> {/* Tinggi ruang tanda tangan dikurangi dari h-20 ke h-16 */}
           <p className="font-bold underline">{data.pptk.nama || '...'}</p>
           <p className="text-sm">NIP. {data.pptk.nip || '...'}</p>
         </div>
@@ -121,7 +127,7 @@ const ReceiptPreview: React.FC<ReceiptPreviewProps> = ({ data }) => {
         <div className="text-center px-4">
           <p>&nbsp;</p>
           <p className="font-bold">Tanda Terima Uang</p>
-          <div className="h-14"></div>
+          <div className="h-16"></div>
           <p className="font-bold underline">{data.penerima.nama || '...'}</p>
           <p className="text-sm">NIP. {data.penerima.nip || '...'}</p>
         </div>
@@ -129,8 +135,8 @@ const ReceiptPreview: React.FC<ReceiptPreviewProps> = ({ data }) => {
         {/* Row 2 */}
         <div className="text-center px-4">
           <p>Setuju dibayar :</p>
-          <p className="font-bold uppercase">{data.penggunaAnggaran.jabatan || 'PENGGUNA ANGGARAN'}</p>
-          <div className="h-14"></div>
+          <p className="font-bold uppercase leading-tight">{data.penggunaAnggaran.jabatan || 'PENGGUNA ANGGARAN'}</p>
+          <div className="h-16"></div>
           <p className="font-bold underline">{data.penggunaAnggaran.nama || '...'}</p>
           <p className="text-sm">NIP. {data.penggunaAnggaran.nip || '...'}</p>
         </div>
@@ -138,7 +144,7 @@ const ReceiptPreview: React.FC<ReceiptPreviewProps> = ({ data }) => {
         <div className="text-center px-4">
           <p>Lunas dibayar :</p>
           <p className="font-bold uppercase">Bendahara Pengeluaran,</p>
-          <div className="h-14"></div>
+          <div className="h-16"></div>
           <p className="font-bold underline">{data.bendahara.nama || '...'}</p>
           <p className="text-sm">NIP. {data.bendahara.nip || '...'}</p>
         </div>
